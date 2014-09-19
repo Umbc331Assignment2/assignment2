@@ -13,11 +13,20 @@ use open ':std', ':encoding(UTF-8)';
 # Process each line from the redirected input file:
 while ($input = <STDIN>) {
 
-    # Match all datums that begin with a Greek letter and end with a Cyrillic letter:
-    my @matches = ($input =~ /(\b\p{Greek}\S*\p{Cyrillic}\b)/g);
-
+    #breaks it up into data chunks
+    @datums = split(' ', $input);
+    foreach (@datums) {
+        # Match all datums that begin with a Greek letter and end with a Cyrillic letter:
+        if ($_ =~ /(\b\p{Greek}\S*\p{Cyrillic}\b)/g) {
+            push(@matches, $_);     #pushes data to matches array
+        }
+        if ($_ =~ /j/g) {
+            push(@matches, $_);
+        }
+    }
     # Print each match:
-    foreach my $x (@matches) {
-        print "$x\n";
+    foreach (@matches) {
+        print $_ ;
+        print "\n";
     }
 }
