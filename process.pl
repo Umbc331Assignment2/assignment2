@@ -15,12 +15,12 @@ while ($input = <STDIN>) {
 
     #breaks it up into data chunks delimited by whitespace:
     @datums = split('\s+', $input);
-    foreach (@datums) {
+    foreach my $datum (@datums) {
         # Match all datums that begin with a Greek letter and end with a Cyrillic letter:
-        if ($_ =~ /(\b\p{Greek}\S*\p{Cyrillic}\b)/g) {
-            push(@matches, $_);     #pushes data to matches array
-        } else if ($_ =~ /j/g) {
-            push(@matches, $_);
+        if ($datum =~ /(\b\p{Greek}\S*\p{Cyrillic}\b)/g) {
+            push(@matches, $datum);     #pushes data to matches array
+        } else if ($datum =~ /j/g) {
+            push(@matches, $datum);
         }
     }
     # Print each match:
