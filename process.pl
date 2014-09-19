@@ -19,8 +19,7 @@ while ($input = <STDIN>) {
         # Match all datums that begin with a Greek letter and end with a Cyrillic letter:
         if ($_ =~ /(\b\p{Greek}\S*\p{Cyrillic}\b)/g) {
             push(@matches, $_);     #pushes data to matches array
-        }
-        if ($_ =~ /j/g) {
+        } else if ($_ =~ /j/g) {
             push(@matches, $_);
         }
     }
