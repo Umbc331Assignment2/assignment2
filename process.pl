@@ -2,13 +2,31 @@
 # Usage from command line:
 #   perl process.pl < input.txt
 
+
 #!/usr/bin/perl
 
+
+use warnings;
 # Make perl unicode-aware so we can use things like \p{Greek}:
 use utf8;
-
 # Stop perl from complaining about mulit-byte output:
 use open ':std', ':encoding(UTF-8)';
+
+
+# The three basic patterns:
+my @patterns = (
+    # Match datum beginning with a Greek letter and ending with a Cyrilli letter:
+    qr/^\p{Greek}\S*\p{Cyrillic}$/,
+    
+    # Match any datum containing balanced square brackets.
+    # This one is confusing. The espaced brackets, '\[' or '\]' match actual brackets
+    # in the string, while others, '[' or ']', are for character classes:
+    qr/[^\[]*\[[^\]]*\]\S*/,
+    
+    # Match any datum that contains at least two double letters in a row:
+    qr/\S*(\p{L})\1(\p{L})\2\S*/,
+);
+
 
 # Process each line from the redirected input file:
 while ($input = <STDIN>) {
@@ -16,10 +34,7 @@ while ($input = <STDIN>) {
     #breaks it up into data chunks delimited by whitespace:
     @datums = split('\s+', $input);
     foreach my $datum (@datums) {
-        # Match all datums that begin with a Greek letter and end with a Cyrillic letter:
-        if ($datum =~ /^\p{Greek}\S*\p{Cyrillic}$/) {
-            push(@matches, $datum);     #pushes data to matches array
-        } else if ($datum =~ /j/g) {
+        if ($datum ~~ @patterns) {
             push(@matches, $datum);
         }
     }
