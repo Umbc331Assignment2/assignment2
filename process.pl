@@ -25,7 +25,6 @@ while ($input = <STDIN>) {
     }
     # Print each match:
     foreach (@matches) {
-        print $_ ;
-        print "\n";
+        print $_, "\n";
     }
 }
