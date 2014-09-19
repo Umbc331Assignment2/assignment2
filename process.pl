@@ -38,8 +38,9 @@ while ($input = <STDIN>) {
             push(@matches, $datum);
         }
     }
-    # Print each match:
-    foreach (@matches) {
-        print $_, "\n";
-    }
+}
+
+# Print each match:
+foreach (@matches) {
+    print $_, "\n";
 }
