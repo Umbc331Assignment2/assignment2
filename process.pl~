@@ -27,7 +27,6 @@ my @patterns = (
     qr/\S*(\p{L})\1(\p{L})\2\S*/,
 
 	# (Will be) match any datum that is a same character repeated prime number times
-	# Derived from http://montreal.pm.org/tech/neil_kandalgaonkar.shtml
 	#qr/^(([a-zA-Z])\2+?)\1+$/
 );
 
