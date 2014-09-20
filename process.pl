@@ -27,6 +27,8 @@ my @patterns = (
     qr/\S*(\p{L})\1(\p{L})\2\S*/,
 );
 
+# Hashmap for storing the matched datums and frequencies
+my %matches;
 
 # Process each line from the redirected input file:
 while ($input = <STDIN>) {
@@ -35,12 +37,16 @@ while ($input = <STDIN>) {
     @datums = split('\s+', $input);
     foreach my $datum (@datums) {
         if ($datum ~~ @patterns) {
-            push(@matches, $datum);
+            $matches{$datum}++;
         }
     }
 }
 
+# Sort the matches by value
+# Found here: http://perldoc.perl.org/functions/sort.html
+@sortedMatches = sort { $matches{$b} <=> $matches{$a} } keys %matches;
+
 # Print each match:
-foreach (@matches) {
+foreach (@sortedMatches) {
     print $_, "\n";
 }
