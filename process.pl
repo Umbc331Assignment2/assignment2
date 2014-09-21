@@ -11,6 +11,9 @@ use warnings;
 use utf8;
 # Stop perl from complaining about mulit-byte output:
 use open ':std', ':encoding(UTF-8)';
+# Suppress warnings about smartmatch being experimental
+# Found here: http://blogs.perl.org/users/mike_b/2013/06/a-little-nicer-way-to-use-smartmatch-on-perl-518.html
+no if $] >= 5.017011, warnings => 'experimental::smartmatch';
 
 
 # The three basic patterns:
