@@ -29,9 +29,9 @@ my @patterns = (
     # Match any datum that contains at least two double letters in a row:
     qr/\S*(\p{L})\1(\p{L})\2\S*/,
 
-	# (Will be) match any datum that is a same character repeated prime number times
-	# Derived from http://montreal.pm.org/tech/neil_kandalgaonkar.shtml
-	#qr/^(([a-zA-Z])\2+?)\1+$/
+    # (Will be) match any datum that is a same character repeated prime number times
+    # Derived from http://montreal.pm.org/tech/neil_kandalgaonkar.shtml
+    #qr/^(([a-zA-Z])\2+?)\1+$/
 );
 
 # Hashmap for storing the matched datums and frequencies
@@ -57,8 +57,8 @@ while ($input = <STDIN>) {
             if (($integer ne "empty") && ($datum > $integer)) {
                 $matches{$datum}++;
             }
-	    $integer = $datum;
-        }        
+        $integer = $datum;
+        }
     }
 }
 
