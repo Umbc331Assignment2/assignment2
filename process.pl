@@ -34,15 +34,28 @@ my @patterns = (
 # Hashmap for storing the matched datums and frequencies
 my %matches;
 
+# Scalar for storing most recent integer seen
+my $integer = "empty";
+
 # Process each line from the redirected input file:
 while ($input = <STDIN>) {
 
-    #breaks it up into data chunks delimited by whitespace:
+    # breaks it up into data chunks delimited by whitespace:
     @datums = split('\s+', $input);
     foreach my $datum (@datums) {
+
+        # capture basic patterns
         if ($datum ~~ @patterns) {
             $matches{$datum}++;
         }
+
+        # capture integer if larger than last integer seen
+        if ($datum =~ /^\-?\d*\d$/) { 
+            if (($integer ne "empty") && ($datum > $integer)) {
+                $matches{$datum}++;
+            }
+	    $integer = $datum;
+        }        
     }
 }
 
