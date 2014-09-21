@@ -39,7 +39,7 @@ my @rulefreq = (0,0,0,0,0);
 my @rule1 = (); my @rule2 = (); my @rule3 = (); my @rule4 = (); my @rule5 = (); 
 # Hashmap for storing the matched datums with their respective rule
 my %matches = (	
-				1 => \@rule1, 
+				1 => \@rule1, 			#Backslashs are C equivalent of &
 				2 => \@rule2,
 				3 => \@rule3,
 				4 => \@rule4,
@@ -55,24 +55,24 @@ while ($input = <STDIN>) {
     # Breaks it up into data chunks delimited by whitespace:
     @datums = split('\s+', $input);
     foreach my $datum (@datums) {
-
+		#print $datum; print "\n";
         # Capture basic patterns
         if ($datum =~ $patterns[0]) {
-			push($matches{1},$datum);
+			push(@{$matches{1}},$datum);
             $rulefreq[0]++;
         }
 		if ($datum =~ $patterns[1]) {
-			push($matches{2},$datum);
+			push(@{$matches{2}},$datum);
             $rulefreq[1]++;
         }
 		if ($datum =~ $patterns[2]) {
-			push($matches{3},$datum);
+			push(@{$matches{3}},$datum);
             $rulefreq[2]++;
         }
 		if ($datum =~ $patterns[3]) {	#TODO dont understand this yet i may of implemented wrong
 			
 			if (($integer ne "empty") && ($datum > $integer)) {
-				push($matches{4},$datum);
+				push(@{$matches{4}},$datum);
 				$rulefreq[3]++;
             }
             $integer = $datum;
@@ -90,24 +90,38 @@ while ($input = <STDIN>) {
 # Found here: http://perldoc.perl.org/functions/sort.html
 #@sortedMatches = sort { $matches{$b} <=> $matches{$a} } keys %matches;
 
-#backslash passes by refference
-sub printsorted(%matches, @rulefreq) {
+
+foreach my $item (@rule1) {print $item;print "\n";}
+#foreach my $key (keys %matches) {
+#	foreach($matches{$key}) {
+#	print @_;
+#	}
+#}
+
+
+sub printsorted {
+	my (%matches, @rulefreq) = @_;
 	$biggestval = 0;
 	$biggestindex = 0;
+	print "KLJSDG";
 	for($i=0; $i < scalar @rulefreq ; $i++) {
 		if($rulefreq[$i] >= $biggestval) {
 			$biggestindex = $i;
 		}
 	}#end for
-	print $matches{$biggestindex};					#prints rule's data collected
+
+	foreach my $item (@{$matches{$biggestindex}}) {	#prints rule's data collected
+		print $item; print "\n";
+	}
+											
 	delete $matches{$biggestindex};				#removes rule we just printed
 	delete $rulefreq[$biggestindex];				#keeps both structures same size
 }#end printsorted
 
 # Print each match:
 while (!keys %matches) {
-	printsorted(\%matches, @rulefreq);
-}
+	printsorted(\%matches, @rulefreq);	#idea is each time its called with one less key
+}										#always prints the biggest value
 
 
 
