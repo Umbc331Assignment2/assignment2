@@ -11,9 +11,6 @@ use warnings;
 use utf8;
 # Stop perl from complaining about mulit-byte output:
 use open ':std', ':encoding(UTF-8)';
-# Suppress warnings about smartmatch being experimental
-# Found here: http://blogs.perl.org/users/mike_b/2013/06/a-little-nicer-way-to-use-smartmatch-on-perl-518.html
-no if $] >= 5.017011, warnings => 'experimental::smartmatch';
 
 
 # The three basic patterns:
@@ -43,21 +40,22 @@ my $integer = "empty";
 # Process each line from the redirected input file:
 while ($input = <STDIN>) {
 
-    # breaks it up into data chunks delimited by whitespace:
+    # Breaks it up into data chunks delimited by whitespace:
     @datums = split('\s+', $input);
     foreach my $datum (@datums) {
-
-        # capture basic patterns
-        if ($datum ~~ @patterns) {
-            $matches{$datum}++;
-        }
-
-        # capture integer if larger than last integer seen
-        if ($datum =~ /^\-?\d*\d$/) { 
-            if (($integer ne "empty") && ($datum > $integer)) {
+        foreach my $pattern (@patterns) {
+            # Capture basic patterns
+            if ($datum =~ $pattern) {
                 $matches{$datum}++;
             }
-        $integer = $datum;
+
+            # Capture integer if larger than last integer seen
+            if ($datum =~ /^\-?\d*\d$/) { 
+                if (($integer ne "empty") && ($datum > $integer)) {
+                    $matches{$datum}++;
+                }
+                $integer = $datum;
+            }
         }
     }
 }
