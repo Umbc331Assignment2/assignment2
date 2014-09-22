@@ -29,7 +29,7 @@ my @patterns = (
 
     # (Will be) match any datum that is a same character repeated prime number times
     # Derived from http://montreal.pm.org/tech/neil_kandalgaonkar.shtml
-    qr/^(([a-zA-Z])\2+?)\1+$/
+    qr/^(([a-zA-Z])\2+?)\1+$/,
 );
 
 # Array of counters each element being a different rule triggered
@@ -77,10 +77,10 @@ while ($input = <STDIN>) {
             }
             $integer = $datum;
         }
-		#if ($datum =~ @pattern[4]) {
-		#	push($matches{'rule 5:'},$datum);
-        #    @rulefreq4]++;
-        #}
+		if ($datum =~ qr/^([a-zA-Z])\1+$/ and $datum !~ $patterns[4]) {
+			push(@{$matches{5}},$datum);
+            $rulefreq[4]++;
+        }
 
 
     }
@@ -91,7 +91,7 @@ while ($input = <STDIN>) {
 #@sortedMatches = sort { $matches{$b} <=> $matches{$a} } keys %matches;
 
 
-foreach my $item (@rule1) {print $item;print "\n";}
+foreach my $item (@rule5) {print $item;print "\n";}
 #foreach my $key (keys %matches) {
 #	foreach($matches{$key}) {
 #	print @_;
