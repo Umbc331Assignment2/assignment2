@@ -32,16 +32,20 @@ my @patterns = (
     qr/^(([a-zA-Z])\2+?)\1+$/,
 );
 
-# Array of counters each element being a different rule triggered
-my @ruleFreq = (0, 0, 0, 0, 0);
+# Hashmap of counters, key being the rule ID
+my %ruleFreq;
 
-# TODO: Make sure these are named correctly
+# Fill it with 0's, so that the output shows the counts even when 0
+for ($i = 0; $i < 5; $i++) {
+    $ruleFreq{$i} = 0;
+    }
+
 my @ruleNames = (
-    "Greek and Cyrilli letter",
+    "Starts with Greek, ends with Cyrillic",
     "Balanced square brackets",
-    "Double letters",
-    "Digits",
-    "Prime length"
+    "Distinct double letters",
+    "Biggest-yet integers",
+    "Character repeated a prime number of times"
     );
 
 # Scalar for storing most recent integer seen
@@ -56,37 +60,29 @@ while ($input = <STDIN>) {
         # Capture basic patterns
         for ($i = 0; $i < 3; $i++) {
             if ($datum =~ $patterns[$i]) {
-                $ruleFreq[$i]++;
+                $ruleFreq{$i}++;
             }
         }
         if ($datum =~ $patterns[3]) {   #TODO make sure doesnt remember first integer (if first happens to be biggest)
             if (($integer ne "empty") && ($datum > $integer)) {
-                $ruleFreq[3]++;
+                $ruleFreq{3}++;
             }
             $integer = $datum;
         }
         #first regex makes sure its just letters second check is if its NOT prime third is if its a single char
         if ($datum =~ qr/^([a-zA-Z])\1+$/ and $datum !~ $patterns[4] and $datum !~ qr/^[a-zA-Z]$/) { 
-            $ruleFreq[4]++;
+            $ruleFreq{4}++;
         }
 
 
     }
 }
 
-# Convert the list into a hashmap for the next step
-# TODO: Find a less lame way to do this
-my %ruleFreqHash;
-my $counter = 0;
-foreach (@ruleFreq) {
-    $ruleFreqHash{$counter++} = $_;
-}
-
 # Sort the rule frequencies by value
 # Found here: http://perldoc.perl.org/functions/sort.html
-@sortedRuleFreq = sort { $ruleFreqHash{$b} <=> $ruleFreqHash{$a} } keys %ruleFreqHash;
+@sortedRuleFreq = sort { $ruleFreq{$b} <=> $ruleFreq{$a} } keys %ruleFreq;
 
 # Print the results!
 foreach (@sortedRuleFreq) {
-    print $ruleNames[$_], ": ", $ruleFreq[$_], "\n";
+    print $ruleNames[$_], ": ", $ruleFreq{$_}, "\n";
 }
