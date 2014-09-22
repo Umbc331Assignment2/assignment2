@@ -27,7 +27,7 @@ my @patterns = (
 	# Matches Digits
 	qr/^\-?\d*\d$/,
 
-    # (Will be) match any datum that is a same character repeated prime number times
+    # match any datum that is a same character repeated a (NOT) prime number times
     # Derived from http://montreal.pm.org/tech/neil_kandalgaonkar.shtml
     qr/^(([a-zA-Z])\2+?)\1+$/,
 );
@@ -69,7 +69,7 @@ while ($input = <STDIN>) {
 			push(@{$matches{3}},$datum);
             $rulefreq[2]++;
         }
-		if ($datum =~ $patterns[3]) {	#TODO dont understand this yet i may of implemented wrong
+		if ($datum =~ $patterns[3]) {	#TODO make sure doesnt remember first integer (if first happens to be biggest)
 			
 			if (($integer ne "empty") && ($datum > $integer)) {
 				push(@{$matches{4}},$datum);
@@ -77,7 +77,8 @@ while ($input = <STDIN>) {
             }
             $integer = $datum;
         }
-		if ($datum =~ qr/^([a-zA-Z])\1+$/ and $datum !~ $patterns[4]) {
+        #first regex makes sure its just letters second check is if its NOT prime third is if its a single char
+		if ($datum =~ qr/^([a-zA-Z])\1+$/ and $datum !~ $patterns[4] and $datum !~ qr/^[a-zA-Z]$/) { 
 			push(@{$matches{5}},$datum);
             $rulefreq[4]++;
         }
@@ -91,7 +92,7 @@ while ($input = <STDIN>) {
 #@sortedMatches = sort { $matches{$b} <=> $matches{$a} } keys %matches;
 
 
-foreach my $item (@rule5) {print $item;print "\n";}
+foreach my $item (@rule4) {print $item;print "\n";}
 #foreach my $key (keys %matches) {
 #	foreach($matches{$key}) {
 #	print @_;
