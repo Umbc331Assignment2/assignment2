@@ -46,6 +46,15 @@ my %matches = (
 				5 => \@rule5,
 			  						); #key then value respectively
 
+# TODO: Make sure these are named correctly
+my @ruleNames = (
+	"Greek and Cyrilli letter",
+	"Balanced square brackets",
+	"Double letters",
+	"Digits",
+	"Prime length"
+	);
+
 # Scalar for storing most recent integer seen
 my $integer = "empty";
 
@@ -57,6 +66,8 @@ while ($input = <STDIN>) {
     foreach my $datum (@datums) {
 		#print $datum; print "\n";
         # Capture basic patterns
+        # TODO: Clean this up some with a loop
+        # TODO: Don't store matches?
         if ($datum =~ $patterns[0]) {
 			push(@{$matches{1}},$datum);
             $rulefreq[0]++;
@@ -87,12 +98,24 @@ while ($input = <STDIN>) {
     }
 }
 
-# Sort the matches by value
+# Convert the list into a hashmap for the next step
+# TODO: Find a less lame way to do this
+my %rulefreqHash;
+my $counter = 0;
+foreach (@rulefreq) {
+	$rulefreqHash{$counter++} = $_;
+}
+
+# Sort the rule frequencies by value
 # Found here: http://perldoc.perl.org/functions/sort.html
-#@sortedMatches = sort { $matches{$b} <=> $matches{$a} } keys %matches;
+@sortedRulefreq = sort { $rulefreqHash{$b} <=> $rulefreqHash{$a} } keys %rulefreqHash;
 
+# Print the results!
+foreach (@sortedRulefreq) {
+	print $ruleNames[$_], ": ", $rulefreq[$_], "\n";
+}
 
-foreach my $item (@rule4) {print $item;print "\n";}
+#foreach my $item (@rule4) {print $item;print "\n";}
 #foreach my $key (keys %matches) {
 #	foreach($matches{$key}) {
 #	print @_;
@@ -120,9 +143,9 @@ sub printsorted {
 }#end printsorted
 
 # Print each match:
-while (!keys %matches) {
-	printsorted(\%matches, @rulefreq);	#idea is each time its called with one less key
-}										#always prints the biggest value
+#while (!keys %matches) {
+#	printsorted(\%matches, @rulefreq);	#idea is each time its called with one less key
+#}										#always prints the biggest value
 
 
 
