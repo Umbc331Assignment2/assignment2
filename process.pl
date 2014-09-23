@@ -1,15 +1,33 @@
 #!/usr/bin/perl
-#############################################
+#############################################################################
 # File: process.pl
 # Usage from command line:
 #   perl process.pl < input.txt
-#############################################
+#############################################################################
 # Authors:
-# Steve udak ?
-# Eric Hebert
-# Nikolaus Woehlke
-# Matthew Henry
-#############################################
+#   Steve Hudak
+#   Eric Hebert
+#   Nikolaus Woehlke
+#   Matthew Henry
+# Class: CMSC 331 Fall 2014 section 04
+# Project: Assignment 2
+# Date finished: September 23, 2014
+#############################################################################
+# Description:
+#  Given a valid UTF-8 encoded text file comprised of whitespace-delimited
+#  data, this program find the following things:
+#    1. Any datum starting with a Greek character and ending with a
+#       Cyrillic one.
+#    2. Any datum that contains a balanced set of square brackets.
+#    3. Any datum that contains at least two distinct double letters in a
+#       row.
+#    4. Any integer that is larger than the most recent integer seen.
+#    5. Any datum that is a same character repeated a prime number of times.
+#  Once all these data are extracted from the corpus, the program prints a
+#  list of the frequencies of these categories of datums, from most to
+#  least frequent.
+#############################################################################
+
 use warnings;
 # Make perl unicode-aware so we can use things like \p{Greek}:
 use utf8;
