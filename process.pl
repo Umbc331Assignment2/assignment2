@@ -55,7 +55,7 @@ my %ruleFreq;
 # Fill it with 0's, so that the output shows the counts even when 0
 for ($i = 0; $i < 5; $i++) {
     $ruleFreq{$i} = 0;
-    }
+}
 
 my @ruleNames = (
     "Starts with Greek, ends with Cyrillic",
@@ -63,7 +63,7 @@ my @ruleNames = (
     "Distinct double letters",
     "Biggest-yet integers",
     "Character repeated a prime number of times"
-    );
+);
 
 # Scalar for storing most recent integer seen
 my $integer = "empty";
