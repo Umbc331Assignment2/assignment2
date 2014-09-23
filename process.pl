@@ -17,7 +17,7 @@ use open ':std', ':encoding(UTF-8)';
 ######################
 
 # The three basic patterns:
-my @patterns = (
+my @basicPatterns = (
     # Match datum beginning with a Greek letter and ending with a Cyrillic
     # letter:
     qr/^\p{Greek}\S*\p{Cyrillic}$/,
@@ -81,7 +81,7 @@ while ($input = <STDIN>) {
     foreach my $datum (@datums) {
         # Capture basic patterns
         for ($i = 0; $i < 3; $i++) {
-            if ($datum =~ $patterns[$i]) {
+            if ($datum =~ $basicPatterns[$i]) {
                 $ruleFreq{$i}++;
             }
         }
