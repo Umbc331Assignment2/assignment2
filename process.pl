@@ -5,7 +5,7 @@
 #   perl process.pl < input.txt
 #############################################################################
 # Authors:
-#    Steve Hudak
+#    Steven Hudak
 #    Eric Hebert
 #    Nikolaus Woehlke
 #    Matthew Henry
