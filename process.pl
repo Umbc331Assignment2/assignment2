@@ -1,9 +1,9 @@
+#!/usr/bin/perl
+#############################################
 # File: process.pl
 # Usage from command line:
 #   perl process.pl < input.txt
-
-#!/usr/bin/perl
-
+#############################################
 
 use warnings;
 # Make perl unicode-aware so we can use things like \p{Greek}:
@@ -63,7 +63,7 @@ while ($input = <STDIN>) {
                 $ruleFreq{$i}++;
             }
         }
-        if ($datum =~ $patterns[3]) {   #TODO make sure doesnt remember first integer (if first happens to be biggest)
+        if ($datum =~ $patterns[3]) {   
             if (($integer ne "empty") && ($datum > $integer)) {
                 $ruleFreq{3}++;
             }
@@ -73,8 +73,6 @@ while ($input = <STDIN>) {
         if ($datum =~ qr/^([a-zA-Z])\1+$/ and $datum !~ $patterns[4] and $datum !~ qr/^[a-zA-Z]$/) { 
             $ruleFreq{4}++;
         }
-
-
     }
 }
 
