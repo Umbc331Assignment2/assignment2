@@ -5,7 +5,7 @@
 #   perl process.pl < input.txt
 #############################################################################
 # Authors:
-#    Steven Hudak
+#    Steven Hudak, hudak1@umbc.edu
 #    Eric Hebert
 #    Nikolaus Woehlke
 #    Matthew Henry
