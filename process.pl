@@ -69,8 +69,9 @@ while ($input = <STDIN>) {
             }
             $integer = $datum;
         }
-        #first regex makes sure its just letters second check is if its NOT prime third is if its a single char
-        if ($datum =~ qr/^(\S)\1+$/ and $datum !~ $patterns[4] and $datum !~ qr/^[a-zA-Z]$/) { 
+        # First regex makes sure it's two or more of the same character.
+        # Second check is if its NOT prime.
+        if ($datum =~ qr/^(\S)\1+$/ and $datum !~ $patterns[4]) { 
             $ruleFreq{4}++;
         }
     }
