@@ -29,7 +29,7 @@ my @patterns = (
 
     # match any datum that is a same character repeated a (NOT) prime number times
     # Derived from http://montreal.pm.org/tech/neil_kandalgaonkar.shtml
-    qr/^(([a-zA-Z])\2+?)\1+$/,
+    qr/^((\S)\2+?)\1+$/,
 );
 
 # Hashmap of counters, key being the rule ID
@@ -70,7 +70,7 @@ while ($input = <STDIN>) {
             $integer = $datum;
         }
         #first regex makes sure its just letters second check is if its NOT prime third is if its a single char
-        if ($datum =~ qr/^([a-zA-Z])\1+$/ and $datum !~ $patterns[4] and $datum !~ qr/^[a-zA-Z]$/) { 
+        if ($datum =~ qr/^(\S)\1+$/ and $datum !~ $patterns[4] and $datum !~ qr/^[a-zA-Z]$/) { 
             $ruleFreq{4}++;
         }
     }
