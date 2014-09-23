@@ -11,6 +11,11 @@ use utf8;
 # Stop perl from complaining about mulit-byte output:
 use open ':std', ':encoding(UTF-8)';
 
+
+######################
+# Regular expressions:
+######################
+
 # The three basic patterns:
 my @patterns = (
     # Match datum beginning with a Greek letter and ending with a Cyrilli letter:
@@ -23,14 +28,22 @@ my @patterns = (
     
     # Match any datum that contains at least two double letters in a row:
     qr/\S*(\p{L})\1(?!\1)(\p{L})\2\S*/,
-
-    # Matches Digits
-    qr/^[-+]?\d*\d$/,
-
-    # match any datum that is a same character repeated a (NOT) prime number times
-    # Derived from http://montreal.pm.org/tech/neil_kandalgaonkar.shtml
-    qr/^((\S)\2+?)\1+$/,
 );
+
+# Matches a whole number with a single leading + or -:
+$wholeNumber = qr/^[-+]?\d*\d$/;
+
+# match any datum that is a same character repeated a (NOT) prime number times
+# Derived from http://montreal.pm.org/tech/neil_kandalgaonkar.shtml
+$notPrime = qr/^((\S)\2+?)\1+$/;
+
+# Match all the same character:
+$sameChar = qr/^(\S)\1+$/;
+
+
+####################
+# Other Useful Data:
+####################
 
 # Hashmap of counters, key being the rule ID
 my %ruleFreq;
@@ -51,6 +64,11 @@ my @ruleNames = (
 # Scalar for storing most recent integer seen
 my $integer = "empty";
 
+
+############
+# Main loop:
+############
+
 # Process each line from the redirected input file:
 while ($input = <STDIN>) {
 
@@ -63,7 +81,7 @@ while ($input = <STDIN>) {
                 $ruleFreq{$i}++;
             }
         }
-        if ($datum =~ $patterns[3]) {   
+        if ($datum =~ $wholeNumber) {   
             if (($integer ne "empty") && ($datum > $integer)) {
                 $ruleFreq{3}++;
             }
@@ -71,7 +89,7 @@ while ($input = <STDIN>) {
         }
         # First regex makes sure it's two or more of the same character.
         # Second check is if it's NOT not-prime (i.e. if it IS prime):
-        if ($datum =~ qr/^(\S)\1+$/ and $datum !~ $patterns[4]) { 
+        if ($datum =~ $sameChar and $datum !~ $notPrime) { 
             $ruleFreq{4}++;
         }
     }
