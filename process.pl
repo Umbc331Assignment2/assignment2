@@ -122,6 +122,11 @@ while ($input = <STDIN>) {
     }
 }
 
+
+###################
+# Final Processing:
+###################
+
 # Sort the rule frequencies by value
 # Found here: http://perldoc.perl.org/functions/sort.html
 @sortedRuleFreq = sort { $ruleFreq{$b} <=> $ruleFreq{$a} } keys %ruleFreq;
