@@ -25,7 +25,7 @@ my @patterns = (
     qr/\S*(\p{L})\1(?!\1)(\p{L})\2\S*/,
 
     # Matches Digits
-    qr/^\-?\d*\d$/,
+    qr/^[-+]?\d*\d$/,
 
     # match any datum that is a same character repeated a (NOT) prime number times
     # Derived from http://montreal.pm.org/tech/neil_kandalgaonkar.shtml
