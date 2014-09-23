@@ -70,7 +70,7 @@ while ($input = <STDIN>) {
             $integer = $datum;
         }
         # First regex makes sure it's two or more of the same character.
-        # Second check is if its NOT prime.
+        # Second check is if it's NOT not-prime (i.e. if it IS prime):
         if ($datum =~ qr/^(\S)\1+$/ and $datum !~ $patterns[4]) { 
             $ruleFreq{4}++;
         }
