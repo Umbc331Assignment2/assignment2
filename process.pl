@@ -18,22 +18,26 @@ use open ':std', ':encoding(UTF-8)';
 
 # The three basic patterns:
 my @patterns = (
-    # Match datum beginning with a Greek letter and ending with a Cyrilli letter:
+    # Match datum beginning with a Greek letter and ending with a Cyrillic
+    # letter:
     qr/^\p{Greek}\S*\p{Cyrillic}$/,
     
     # Match any datum containing balanced square brackets.
-    # This one is confusing. The espaced brackets, '\[' or '\]' match actual brackets
-    # in the string, while others, '[' or ']', are for character classes:
+    # This one is confusing. The espaced brackets, '\[' or '\]' match actual
+    # brackets in the string, while others, '[' or ']', are for character
+    # classes:
     qr/[^\[]*\[[^\]]*\]\S*/,
     
-    # Match any datum that contains at least two double letters in a row:
+    # Match any datum that contains at least two distinct double letters in a
+    # row:
     qr/\S*(\p{L})\1(?!\1)(\p{L})\2\S*/,
 );
 
 # Matches a whole number with a single leading + or -:
 $wholeNumber = qr/^[-+]?\d*\d$/;
 
-# match any datum that is a same character repeated a (NOT) prime number times
+# Match any datum that is a same character repeated a (NOT) prime number
+# times.
 # Derived from http://montreal.pm.org/tech/neil_kandalgaonkar.shtml
 $notPrime = qr/^((\S)\2+?)\1+$/;
 
