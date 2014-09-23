@@ -22,7 +22,7 @@ my @patterns = (
     qr/[^\[]*\[[^\]]*\]\S*/,
     
     # Match any datum that contains at least two double letters in a row:
-    qr/\S*(\p{L})\1(\p{L})\2\S*/,
+    qr/\S*(\p{L})\1(?!\1)(\p{L})\2\S*/,
 
     # Matches Digits
     qr/^\-?\d*\d$/,
