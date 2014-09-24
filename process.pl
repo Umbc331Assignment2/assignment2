@@ -23,7 +23,7 @@ use open ':std', ':encoding(UTF-8)';
 
 =head1 NAME
 
-process.pl - print frequencies of patterns within a whitespace dilimited file
+process.pl - print frequencies of patterns within a whitespace delimited file
 
 =head1 SYNOPSIS
 
