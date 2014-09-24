@@ -13,26 +13,49 @@
 # Project:       Assignment 2
 # Date finished: September 23, 2014
 #############################################################################
-# Description:
-#  Given a valid UTF-8 encoded text file comprised of whitespace-delimited
-#  data, this program find the following things:
-#    1. Any datum starting with a Greek character and ending with a
-#       Cyrillic one.
-#    2. Any datum that contains a balanced set of square brackets.
-#    3. Any datum that contains at least two distinct double letters in a
-#       row.
-#    4. Any integer that is larger than the most recent integer seen.
-#    5. Any datum that is a same character repeated a prime number of times.
-#  Once all these data are extracted from the corpus, the program prints a
-#  list of the frequencies of these categories of datums, from most to
-#  least frequent.
-#############################################################################
 
 use warnings;
 # Make perl unicode-aware so we can use things like \p{Greek}:
 use utf8;
 # Stop perl from complaining about mulit-byte output:
 use open ':std', ':encoding(UTF-8)';
+
+
+=head1 NAME
+
+process.pl - print frequencies of patterns within a whitespace dilimited file
+
+=head1 SYNOPSIS
+
+B<perl> B<process.pl> B<<> I<input.txt>
+
+=head1 DESCRIPTION
+
+Given a valid UTF-8 encoded text file comprised of whitespace-delimited
+data, this program find the following things:
+  1. Any datum starting with a Greek character and ending with a
+     Cyrillic one.
+  2. Any datum that contains a balanced set of square brackets.
+  3. Any datum that contains at least two distinct double letters in a
+     row.
+  4. Any integer that is larger than the most recent integer seen.
+  5. Any datum that is a same character repeated a prime number of times.
+Once all these data are extracted from the corpus, the program prints a
+list of the frequencies of these categories of datums, from most to
+least frequent.
+
+=head1 REQUIRES
+
+Perl v5.10.1 (Not tested with any prior versions).
+
+=head1 AUTHOR
+
+Steven Hudak, hudak1@umbc.edu;
+Eric Hebert, ehebert1@umbc.edu;
+Nikolaus Woehlke, woehlke1@umbc.edu;
+Matthew Henry, henmatt1@umbc.edu;
+
+=cut
 
 
 ######################
