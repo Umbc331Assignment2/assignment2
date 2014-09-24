@@ -5,10 +5,10 @@
 #   perl process.pl < input.txt
 #############################################################################
 # Authors:
-#    Steven Hudak, hudak1@umbc.edu
-#    Eric Hebert
-#    Nikolaus Woehlke
-#    Matthew Henry
+#    Steven Hudak,     hudak1@umbc.edu
+#    Eric Hebert,      ehebert1@umbc.edu
+#    Nikolaus Woehlke, woehlke1@umbc.edu
+#    Matthew Henry,    henmatt1@umbc.edu
 # Class:         CMSC 331 Fall 2014 section 04
 # Project:       Assignment 2
 # Date finished: September 23, 2014
